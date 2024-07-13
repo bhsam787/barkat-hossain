@@ -1,0 +1,222 @@
+{{ 'section-hero-banner.css' | asset_url | stylesheet_tag }}
+
+<div class="hero_banner" id="hero_banner_{{ section.id }}">
+  <div class="hero_banner__announcement">
+    <div class="content page-width">
+      {% if section.settings.logo %}
+        <div class="logo">
+          {{ section.settings.logo | image_url: width: 152 | image_tag }}
+        </div>
+      {% endif %}
+      {% if section.settings.announcement_text %}
+        <div class="content__text">
+          <p>{{ section.settings.announcement_text }}</p>
+        </div>
+      {% endif %}
+      <div class="content__cta">
+        <a
+          href="{{ section.settings.announcement_cta_url }}"
+          class="btn--{{ section.settings.announcement_cta_style }} animated_buttons"
+        >
+          <span>{{- section.settings.announcement_cta -}}</span>
+          <svg width="26" height="12" viewBox="0 0 26 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.22205 4.80469L0.472046 4.80469L0.472046 6.30469L1.22205 6.30469L1.22205 4.80469ZM25.7524 6.08502C26.0453 5.79213 26.0453 5.31725 25.7524 5.02436L20.9794 0.251388C20.6865 -0.0415053 20.2116 -0.0415053 19.9187 0.251388C19.6259 0.544281 19.6259 1.01916 19.9187 1.31205L24.1614 5.55469L19.9187 9.79733C19.6259 10.0902 19.6259 10.5651 19.9187 10.858C20.2116 11.1509 20.6865 11.1509 20.9794 10.858L25.7524 6.08502ZM1.22205 6.30469L25.222 6.30469L25.222 4.80469L1.22205 4.80469L1.22205 6.30469Z" fill="black"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="hero_banner__image">
+    {{ section.settings.first_image | image_url: width: 1440 | image_tag }}
+  </div>
+  <div class="hero_banner__image_grid page-width">
+    <div class="hero_banner_content">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'heading' %}
+            <h1 style="font-size: {{ block.settings.heading_font_size }}px;">{{ block.settings.heading }}</h1>
+          {% when 'content' %}
+            <div class="content" style="font-size: {{ block.settings.content_font_size }}px;">{{ block.settings.content }}</div>
+          {% when 'CTA_Button' %}
+            <a
+              href="{{ block.settings.cta_url }}"
+              class="btn--{{ block.settings.cta_style }} animated_buttons"
+            >
+              <span>{{- block.settings.cta_text -}}</span>
+              <svg width="26" height="12" viewBox="0 0 26 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1.22205 4.80469L0.472046 4.80469L0.472046 6.30469L1.22205 6.30469L1.22205 4.80469ZM25.7524 6.08502C26.0453 5.79213 26.0453 5.31725 25.7524 5.02436L20.9794 0.251388C20.6865 -0.0415053 20.2116 -0.0415053 19.9187 0.251388C19.6259 0.544281 19.6259 1.01916 19.9187 1.31205L24.1614 5.55469L19.9187 9.79733C19.6259 10.0902 19.6259 10.5651 19.9187 10.858C20.2116 11.1509 20.6865 11.1509 20.9794 10.858L25.7524 6.08502ZM1.22205 6.30469L25.222 6.30469L25.222 4.80469L1.22205 4.80469L1.22205 6.30469Z" fill="black"/>
+              </svg>
+            </a>
+        {% endcase %}
+      {% endfor %}
+    </div>
+    <div class="hero_banner__image_2">
+      {{ section.settings.second_image | image_url: width: 890 | image_tag }}
+    </div>
+  </div>
+</div>
+
+
+
+{% schema %}
+{
+  "name": "t:sections.hero-banner.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.hero-banner.settings.header.content"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "t:sections.hero-banner.settings.logo.label"
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "t:sections.hero-banner.settings.announcement_text.label"
+    },
+    {
+      "type": "text",
+      "id": "announcement_cta",
+      "label": "t:sections.hero-banner.settings.announcement_cta.label"
+    },
+    {
+      "type": "url",
+      "id": "announcement_cta_url",
+      "label": "t:sections.hero-banner.settings.announcement_cta_url.label"
+    },
+    {
+      "type": "select",
+      "id": "announcement_cta_style",
+      "label": "t:sections.hero-banner.settings.announcement_cta_style.label",
+      "options": [
+        {
+          "value": "primary",
+          "label": "t:sections.hero-banner.settings.announcement_cta_style.options__1.label"
+        },
+        {
+          "value": "secondary",
+          "label": "t:sections.hero-banner.settings.announcement_cta_style.options__2.label"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.hero-banner.settings.header_2.content"
+    },
+    {
+      "type": "image_picker",
+      "id": "first_image",
+      "label": "t:sections.hero-banner.settings.image.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "second_image",
+      "label": "t:sections.hero-banner.settings.image_2.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "t:sections.hero-banner.settings.mobile_image.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "t:sections.hero-banner.blocks.heading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:sections.hero-banner.blocks.heading.settings.heading.label"
+        },
+        {
+          "type": "range",
+          "id": "heading_font_size",
+          "label": "t:sections.hero-banner.blocks.heading.settings.heading.heading_font_size",
+          "default": 36,
+          "min": 12,
+          "max": 72,
+          "step": 1
+        }
+      ]
+    },
+    {
+      "type": "content",
+      "name": "t:sections.hero-banner.blocks.content.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "t:sections.hero-banner.blocks.content.settings.content.label"
+        },
+        {
+          "type": "range",
+          "id": "content_font_size",
+          "label": "t:sections.hero-banner.blocks.content.settings.content.content_font_size",
+          "default": 18,
+          "min": 12,
+          "max": 72,
+          "step": 1
+        }
+      ]
+    },
+    {
+      "type": "CTA_Button",
+      "name": "t:sections.hero-banner.blocks.CTA_Button.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "t:sections.hero-banner.blocks.CTA_Button.settings.CTA_Button.label"
+        },
+        {
+          "type": "url",
+          "id": "cta_url",
+          "label": "t:sections.hero-banner.blocks.CTA_Button.settings.CTA_Button.CTA_URL"
+        },
+        {
+          "type": "select",
+          "id": "cta_style",
+          "label": "t:sections.hero-banner.blocks.CTA_Button.settings.CTA_Button.CTA_Style.label",
+          "options": [
+            {
+              "value": "primary",
+              "label": "t:sections.hero-banner.blocks.CTA_Button.settings.CTA_Button.CTA_Style.options__1.label"
+            },
+            {
+              "value": "secondary",
+              "label": "t:sections.hero-banner.blocks.CTA_Button.settings.CTA_Button.CTA_Style.options__2.label"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.hero-banner.presets.name"
+    }
+  ]
+}
+{% endschema %}
+
+{% comment %}
+  "blocks": [
+    {
+      "type": "heading"
+    },
+    {
+      "type": "text"
+    },
+    {
+      "type": "buttons"
+    }
+  ]
+{% endcomment %}

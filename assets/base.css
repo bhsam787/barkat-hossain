@@ -81,6 +81,11 @@
   margin: 0 auto;
   padding: 0 1.5rem;
 }
+.page-width-cutom{
+  max-width: 1330px;
+  margin: 0 auto;
+  padding: 0;
+}
 
 body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   max-width: 100%;
